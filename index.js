@@ -13,4 +13,4 @@ const server = https.createServer({
 }, app)
 
 server.listen(config.PORT)
-logger.info(`http://127.0.0.1${config.PORT}`)
+logger.info(`http://127.0.0.1:${config.PORT}`)
