@@ -18,7 +18,8 @@ app.use(middleware.requestLogger)
 app.use('/api/users', usersRouter)
 app.use('/api/videos', videoRouter)
 app.use('/api/login', loginRouter)
-app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
+app.use(middleware.unknownEndpoint)
+app.use(middleware.internalServerError)
 
 module.exports = app
