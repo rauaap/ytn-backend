@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 const videoRouter = require('express').Router()
 const logger = require('../utils/logger')
+const config = require('../utils/config')
 const Video = require('../models/video')
 const User = require('../models/user')
 
@@ -17,7 +18,7 @@ const validateToken = (token) => {
         return
     }
     try {
-        const decodedToken = jwt.verify(token, process.env.SECRET)
+        const decodedToken = jwt.verify(token, config.SECRET)
         return decodedToken
     }
     catch(err) {
