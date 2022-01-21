@@ -20,6 +20,7 @@ app.use('/api/videos', videoRouter)
 app.use('/api/login', loginRouter)
 app.use(middleware.errorHandler)
 app.use(middleware.unknownEndpoint)
+app.use(middleware.badRequestError)
 app.use(middleware.internalServerError)
 
 module.exports = app

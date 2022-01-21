@@ -2,16 +2,33 @@ const logger = require('./logger')
 const morgan = require('morgan')
 
 morgan.token('jsonPost', (req, res) => {
-        return req.method === 'POST' ?
-        JSON.stringify(req.body) :
-        null
-    })
+    const truncateItems = (json) => {
+        return Object.keys(json).reduce((t, c) => {
+            const item = json[c].length > 25 ? `${json[c].slice(0,25)}...` : json[c]
+            console.log(item)
+            t[c] = item
+            return t
+        }, {})
+    }
+    return req.method === 'POST' ?
+    JSON.stringify(truncateItems(req.body)) :
+    null
+})
 const requestLogger = morgan(':date - :method :url :status :res[content-length] - :response-time ms :jsonPost')
 
 const unknownEndpoint = (request, response) => {
     response.status(404).send({
         error: 'unknown endpoint'
     })
+}
+
+const badRequestError = (error, request, response, next) => {
+    if (error.status === 400) {
+        return response.status(400).send({
+            error: 'bad request'
+        })
+    }
+    next(error)
 }
 
 const internalServerError = (error, request, response, next) => {
@@ -69,5 +86,6 @@ module.exports = {
     requestLogger,
     errorHandler,
     unknownEndpoint,
-    internalServerError
+    internalServerError,
+    badRequestError
 }

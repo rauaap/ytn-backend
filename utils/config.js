@@ -6,6 +6,7 @@ const SECRET = process.env.SECRET
 const CERT_PATH = process.env.CERT_PATH
 const KEY_PATH = process.env.KEY_PATH
 const PASSPHRASE = process.env.PASSPHRASE
+const CAPTCHA_SECRET = process.env.CAPTCHA_SECRET
 
 module.exports = {
     PORT,
@@ -13,5 +14,6 @@ module.exports = {
     SECRET,
     CERT_PATH,
     KEY_PATH,
-    PASSPHRASE
+    PASSPHRASE,
+    CAPTCHA_SECRET
 }
